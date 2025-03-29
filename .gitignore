@@ -1,0 +1,14 @@
+# Ignore all logs
+*.log
+
+# Ignore all exported files
+confluence_export
+
+# env
+.env
+.venv
+__pycache__/
+
+# IDE
+.idea
+.DS_store
