@@ -7,4 +7,4 @@ class Space:
         self.key = key
 
     def output(self):
-        return f'Name: {self.name}\nKey: {self.key}\n' + '-' * 10
+        return f'Name: {self.name}\nKey: {self.key}\n'

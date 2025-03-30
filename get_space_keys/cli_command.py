@@ -1,6 +1,6 @@
-import argparse
 import os
 
+import click
 import dotenv
 from atlassian import Confluence
 
@@ -8,7 +8,10 @@ from get_space_keys.entities.result import Result
 from get_space_keys.entities.result import Space
 
 
-def main(start: int, limit: int) -> Result:
+@click.command()
+@click.option('-s', '--start', type=int, default=0, help='Start')
+@click.option('-l', '--limit', type=int, default=500, help='Limit spaces in response')
+def get_space_keys(start: int, limit: int) -> None:
     dotenv.load_dotenv()
 
     confluence = Confluence(
@@ -25,31 +28,6 @@ def main(start: int, limit: int) -> Result:
     for space in spaces['results']:
         result.add(Space(space['name'], space['key']))
 
-    return result
-
-
-if __name__ == '__main__':
-    parser = argparse.ArgumentParser(
-        prog='Get space keys',
-        description='Returns list of space name and keys'
-    )
-    parser.add_argument(
-        '-s', '--start',
-        type=int,
-        default=0,
-        help='Start index'
-    )
-    parser.add_argument(
-        '-l', '--limit',
-        type=int,
-        default=500,
-        help='Limit output'
-    )
-    args = parser.parse_args()
-
-    result = main(args.start, args.limit)
-
-    print(f'Start: {args.start}\tLimit: {args.limit}\tHas more: {result.has_more}\n')
-    print(f'-' * 10)
+    click.secho(f'Start: {start}\tLimit: {limit}\tHas more: {result.has_more}', fg='green')
     for space in result.spaces:
-        print(space.output())
+        click.secho(space.output())
