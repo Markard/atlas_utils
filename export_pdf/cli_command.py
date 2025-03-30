@@ -28,4 +28,4 @@ def export_pdf(space_key):
 
     PdfExporter(confluence).export(space_key, os.getenv('CONF_EXPORT_DIR'))
 
-    click.echo(click.style(f'Successfully exported', fg='green'))
+    click.secho(f'Successfully exported', fg='green')
