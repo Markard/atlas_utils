@@ -4,8 +4,11 @@ import os
 import dotenv
 from atlassian import Confluence
 
+from get_space_keys.entities.result import Result
+from get_space_keys.entities.result import Space
 
-def main(start: int, limit: int):
+
+def main(start: int, limit: int) -> Result:
     dotenv.load_dotenv()
 
     confluence = Confluence(
@@ -16,10 +19,11 @@ def main(start: int, limit: int):
         cloud=os.getenv('IS_IN_CLOUD')
     )
 
-    result = []
     spaces = confluence.get_all_spaces(start, limit)
+    has_more = next in spaces['_links']
+    result = Result(has_more)
     for space in spaces['results']:
-        result.append({'name': space['name'], 'key': space['key']})
+        result.add(Space(space['name'], space['key']))
 
     return result
 
@@ -43,11 +47,9 @@ if __name__ == '__main__':
     )
     args = parser.parse_args()
 
-    spaces = main(args.start, args.limit)
+    result = main(args.start, args.limit)
 
-    print(f'Start: {args.start}\tLimit: {args.limit}\n')
+    print(f'Start: {args.start}\tLimit: {args.limit}\tHas more: {result.has_more}\n')
     print(f'-' * 10)
-    for space in spaces:
-        print(f'Name: {space['name']}')
-        print(f'Key: {space['key']}')
-        print(f'-' * 10)
+    for space in result.spaces:
+        print(space.output())
