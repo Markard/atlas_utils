@@ -1,10 +1,11 @@
+import argparse
 import os
 
 import dotenv
 from atlassian import Confluence
 
 
-def main():
+def main(start: int, limit: int):
     dotenv.load_dotenv()
 
     confluence = Confluence(
@@ -16,14 +17,36 @@ def main():
     )
 
     result = []
-    for space in confluence.get_all_spaces()['results']:
+    spaces = confluence.get_all_spaces(start, limit)
+    for space in spaces['results']:
         result.append({'name': space['name'], 'key': space['key']})
 
     return result
 
 
 if __name__ == '__main__':
-    spaces = main()
+    parser = argparse.ArgumentParser(
+        prog='Get space keys',
+        description='Returns list of space name and keys'
+    )
+    parser.add_argument(
+        '-s', '--start',
+        type=int,
+        default=0,
+        help='Start index'
+    )
+    parser.add_argument(
+        '-l', '--limit',
+        type=int,
+        default=500,
+        help='Limit output'
+    )
+    args = parser.parse_args()
+
+    spaces = main(args.start, args.limit)
+
+    print(f'Start: {args.start}\tLimit: {args.limit}\n')
+    print(f'-' * 10)
     for space in spaces:
         print(f'Name: {space['name']}')
         print(f'Key: {space['key']}')
