@@ -43,14 +43,19 @@ class Log:
         self.id = id
 
 
-def create_from_raw_data(raw_log: dict, day: datetime) -> Log:
-    s_time = datetime.strptime(raw_log['started_at'], '%H:%M')
-    e_time = datetime.strptime(raw_log['ended_at'], '%H:%M')
+def create_from_raw_data(raw_data: list[dict], day: datetime) -> list[Log]:
+    logs_for_day = []
+    for raw_log in raw_data:
+        s_time = datetime.strptime(raw_log['started_at'], '%H:%M')
+        e_time = datetime.strptime(raw_log['ended_at'], '%H:%M')
 
-    return Log(
-        day.replace(hour=s_time.hour, minute=s_time.minute),
-        day.replace(hour=e_time.hour, minute=e_time.minute),
-        raw_log['comment'],
-        raw_log['issue_key'] if 'issue_key' in raw_log else None,
-        raw_log['tags'] if 'tags' in raw_log else []
-    )
+        log = Log(
+            day.replace(hour=s_time.hour, minute=s_time.minute),
+            day.replace(hour=e_time.hour, minute=e_time.minute),
+            raw_log['comment'],
+            raw_log['issue_key'] if 'issue_key' in raw_log else None,
+            raw_log['tags'] if 'tags' in raw_log else []
+        )
+        logs_for_day.append(log)
+
+    return logs_for_day

@@ -10,15 +10,7 @@ class JsonRepository:
         self.__input_file = InputFile(Format.JSON)
 
     def load(self, day: datetime):
-        logs_for_day = []
         filepath = self.__input_file.get_filepath(day)
         with open(filepath) as file:
             raw_data = json.load(file)
-            for raw_log in raw_data:
-                log = create_from_raw_data(raw_log, day)
-                logs_for_day.append(log)
-
-        return logs_for_day
-
-
-
+            return create_from_raw_data(raw_data, day)

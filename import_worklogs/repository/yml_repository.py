@@ -1,4 +1,5 @@
-from yaml import load, dump
+from yaml import load
+
 try:
     from yaml import CLoader as Loader, CDumper as Dumper
 except ImportError:
@@ -15,15 +16,7 @@ class YmlRepository:
         self.__input_file = InputFile(Format.YML)
 
     def load(self, day: datetime):
-        logs_for_day = []
         filepath = self.__input_file.get_filepath(day)
         with open(filepath) as file:
             raw_data = load(file, Loader)
-            for raw_log in raw_data:
-                log = create_from_raw_data(raw_log, day)
-                logs_for_day.append(log)
-
-        return logs_for_day
-
-
-
+            return create_from_raw_data(raw_data, day)
