@@ -1,4 +1,4 @@
-from get_space_keys.entities.space import Space
+from get_space_keys.entity.space import Space
 
 
 class Result:

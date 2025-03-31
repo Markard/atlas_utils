@@ -4,8 +4,8 @@ import click
 import dotenv
 from atlassian import Confluence
 
-from get_space_keys.entities.result import Result
-from get_space_keys.entities.result import Space
+from get_space_keys.entity.result import Result
+from get_space_keys.entity.result import Space
 
 
 @click.command()
