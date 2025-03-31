@@ -1,16 +1,16 @@
 from datetime import datetime
 
-from import_worklogs.entity.log import Log
-from import_worklogs.repository.jira_repository import JiraRepository
-from import_worklogs.repository.yml_repository import YmlRepository
+from upload_worklogs.entity.log import Log
+from upload_worklogs.repository.jira_repository import JiraRepository
+from upload_worklogs.repository.yml_repository import YmlRepository
 
 
-class Transfer:
+class Uploader:
     def __init__(self):
         self.__loader_from_file = YmlRepository()
         self.__provider = JiraRepository()
 
-    def transfer(self, day: datetime, flush: bool) -> list[Log]:
+    def upload(self, day: datetime, flush: bool) -> list[Log]:
         logs_for_day = self.__loader_from_file.load(day)
         if not flush:
             return logs_for_day

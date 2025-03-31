@@ -4,8 +4,8 @@ from logging import Logger
 
 from atlassian import Confluence
 
-from export_pdf.entities.hierarchy import Hierarchy
-from export_pdf.entities.page import Page
+from export_pdf.entity.hierarchy import Hierarchy
+from export_pdf.entity.page import Page
 
 
 class PdfExporter:

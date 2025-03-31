@@ -4,7 +4,7 @@ from zoneinfo import ZoneInfo
 
 import click
 
-from import_worklogs.use_case.transfer_worklog import Transfer
+from upload_worklogs.use_case.upload_worklogs import Uploader
 
 
 @click.command()
@@ -13,9 +13,9 @@ from import_worklogs.use_case.transfer_worklog import Transfer
               required=True,
               help='Current date, for example:2025-03-31')
 @click.option('-f', '--flush', type=bool, default=False, help='Ready to upload to logs?')
-def issue_worklog(day: datetime, flush: bool) -> None:
+def upload_worklog(day: datetime, flush: bool) -> None:
     day = day.replace(tzinfo=ZoneInfo(os.getenv('TZ')))
-    logs_for_day = Transfer().transfer(day, flush)
+    logs_for_day = Uploader().upload(day, flush)
 
     success_msg = f'Successfully transferred' if flush else f'Load locally'
     click.secho(success_msg, fg='green', underline=True, bold=True)
