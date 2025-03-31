@@ -2,7 +2,6 @@ from datetime import datetime
 
 from import_worklogs.entity.log import Log
 from import_worklogs.repository.jira_repository import JiraRepository
-from import_worklogs.repository.json_repository import JsonRepository
 from import_worklogs.repository.yml_repository import YmlRepository
 
 
