@@ -7,8 +7,8 @@ except ImportError:
 
 from datetime import datetime
 
-from import_worklogs.entity.log import create_from_raw_data
-from import_worklogs.repository.input_file import InputFile, Format
+from upload_worklogs.entity.log import create_from_raw_data
+from upload_worklogs.repository.input_file import InputFile, Format
 
 
 class YmlRepository:

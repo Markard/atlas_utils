@@ -2,7 +2,7 @@ import os
 
 from atlassian import Jira
 
-from import_worklogs.entity.log import Log
+from upload_worklogs.entity.log import Log
 
 
 class JiraRepository:
