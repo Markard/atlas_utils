@@ -5,6 +5,7 @@ from enum import Enum
 
 class Format(Enum):
     JSON: str = 'json'
+    YML: str = 'yml'
 
 
 class InputFile:

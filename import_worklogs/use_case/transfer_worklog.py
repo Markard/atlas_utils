@@ -3,11 +3,12 @@ from datetime import datetime
 from import_worklogs.entity.log import Log
 from import_worklogs.repository.jira_repository import JiraRepository
 from import_worklogs.repository.json_repository import JsonRepository
+from import_worklogs.repository.yml_repository import YmlRepository
 
 
 class Transfer:
     def __init__(self):
-        self.__loader_from_file = JsonRepository()
+        self.__loader_from_file = YmlRepository()
         self.__provider = JiraRepository()
 
     def transfer(self, day: datetime, flush: bool) -> list[Log]:
