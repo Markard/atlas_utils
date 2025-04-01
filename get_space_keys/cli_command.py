@@ -9,8 +9,8 @@ from get_space_keys.entity.result import Space
 
 
 @click.command()
-@click.option('-s', '--start', type=int, default=0, help='Start')
-@click.option('-l', '--limit', type=int, default=500, help='Limit spaces in response')
+@click.option('-s', '--start', type=int, default=0, help='Starting index for pagination')
+@click.option('-l', '--limit', type=int, default=500, help='Number of spaces to retrieve per page')
 def get_space_keys(start: int, limit: int) -> None:
     dotenv.load_dotenv()
 

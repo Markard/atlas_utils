@@ -11,8 +11,11 @@ from upload_worklogs.use_case.upload_worklogs import Uploader
 @click.option('-d', '--day',
               type=click.DateTime(formats=['%Y-%m-%d']),
               required=True,
-              help='Current date, for example:2025-03-31')
-@click.option('-f', '--flush', type=bool, default=False, help='Ready to upload to logs?')
+              help='Date in %Y-%m-%d format (required)')
+@click.option('-f', '--flush',
+              type=bool,
+              default=False,
+              help='If True, uploads worklogs to Jira. If False, only displays the logs (default: False)')
 def upload_worklog(day: datetime, flush: bool) -> None:
     day = day.replace(tzinfo=ZoneInfo(os.getenv('TZ')))
     logs_for_day = Uploader().upload(day, flush)
