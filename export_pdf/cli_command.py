@@ -16,7 +16,7 @@ def validate_space_key(ctx, param, value) -> str:
 
 
 @click.command()
-@click.option('-sk', '--space_key', callback=validate_space_key, type=str, required=True, help='Confluence space key')
+@click.option('-sk', '--space_key', callback=validate_space_key, type=str, required=True, help='The key of the Confluence space to export')
 def export_pdf(space_key):
     confluence = Confluence(
         url=os.getenv('ATLASSIAN_URL'),
